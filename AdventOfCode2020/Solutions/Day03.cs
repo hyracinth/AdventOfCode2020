@@ -29,9 +29,7 @@ namespace AdventOfCode2020.Solutions
 
         public int getTrees(int xStep, int yStep)
         {
-            string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string[] inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day03.txt");
-
+            string[] inputsRaw = Utils.readInputFile(3);
             int width = inputsRaw[0].Length;
 
             int currX = 0;

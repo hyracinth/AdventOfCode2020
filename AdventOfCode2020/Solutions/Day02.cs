@@ -14,8 +14,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day02.txt").ToList();
+            List<string> inputsRaw = Utils.readInputFile(2).ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');
@@ -42,8 +41,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day02.txt").ToList();
+            List<string> inputsRaw = Utils.readInputFile(2).ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');

@@ -14,8 +14,7 @@ namespace AdventOfCode2020.Solutions
         {
             int target = 2020;
 
-            string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day01.txt").ToList();
+            List<string> inputsRaw = Utils.readInputFile(1).ToList();
             List<int> inputs = inputsRaw.Select(x => Int32.Parse(x)).Where(x => x < target).ToList();
 
             for(int ii = 0; ii < inputs.Count; ii++)
@@ -41,8 +40,7 @@ namespace AdventOfCode2020.Solutions
         {
             int target = 2020;
 
-            string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day01.txt").ToList();
+            List<string> inputsRaw = Utils.readInputFile(1).ToList();
             List<int> inputs = inputsRaw.Select(x => Int32.Parse(x)).Where(x => x < target).ToList();
 
             for (int ii = 0; ii < inputs.Count; ii++)
