@@ -12,6 +12,23 @@ namespace AdventOfCode2020.Solutions.Day03
     {
         public string SolveP1()
         {
+            return getTrees(3, 1).ToString();
+        }
+
+        public string SolveP2()
+        {
+            long prod1 = getTrees(1, 1);
+            long prod2 = getTrees(3, 1);
+            long prod3 = getTrees(5, 1);
+            long prod4 = getTrees(7, 1);
+            long prod5 = getTrees(1, 2);
+
+            long prodTotal = prod1 * prod2 * prod3 * prod4 * prod5;
+            return prodTotal.ToString();
+        }
+
+        public int getTrees(int xStep, int yStep)
+        {
             string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string[] inputsRaw = File.ReadAllLines(directoryName + "/Inputs/input_Day03.txt");
 
@@ -20,37 +37,25 @@ namespace AdventOfCode2020.Solutions.Day03
             int currX = 0;
             int currY = 0;
 
-            int countOpen = 0;
             int countTree = 0;
 
             while (currY < inputsRaw.Length - 1)
             {
-                currX += 3;
-                currY++;
+                currX += xStep;
+                currY += yStep;
 
-                if(currX > width - 1)
+                if (currX > width - 1)
                 {
                     currX = currX % width;
                 }
 
-                switch(inputsRaw[currY][currX])
+                if (inputsRaw[currY][currX] == '#')
                 {
-                    case '.':
-                        countOpen++;
-                        break;
-                    case '#':
-                        countTree++;
-                        break;
+                    countTree++;
                 }
             }
 
-            return null;
-        }
-
-        public string SolveP2()
-        {
-
-            return null;
+            return countTree;
         }
     }
 }
