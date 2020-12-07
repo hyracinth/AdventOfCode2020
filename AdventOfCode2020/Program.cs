@@ -1,7 +1,4 @@
-﻿using AdventOfCode2020.Solutions.Day01;
-using AdventOfCode2020.Solutions.Day02;
-using AdventOfCode2020.Solutions.Day03;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,20 +10,22 @@ namespace AdventOfCode2020
     {
         static void Main(string[] args)
         {
-            //Day01 day01 = new Day01();
-            //Console.WriteLine(day01.SolveP1());
-            //Console.WriteLine(day01.SolveP2());
+            string classTemplate = "AdventOfCode2020.Solutions.Day#, AdventOfCode2020";
 
-            //Day02 day02 = new Day02();
-            //Console.WriteLine(day02.SolveP1());
-            //Console.WriteLine(day02.SolveP2());
+            int maxDay = 3;
 
-            Day03 day03 = new Day03();
-            Console.WriteLine(day03.SolveP1());
-            Console.WriteLine(day03.SolveP2());
+            for(int ii = 1; ii <= maxDay; ii++)
+            {
+                string currDay = ii.ToString("D2");
 
-            Console.ReadLine();
+                Console.WriteLine("Day " + currDay);
+                string currDayClass = classTemplate.Replace("#", currDay);
 
+                var instObj = Activator.CreateInstance(Type.GetType(currDayClass)) as IDay;
+                Console.WriteLine(instObj.SolveP1());
+                Console.WriteLine(instObj.SolveP2());
+                Console.WriteLine();
+            }
         }
     }
 

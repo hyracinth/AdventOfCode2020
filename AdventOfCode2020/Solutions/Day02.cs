@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2020.Solutions.Day02
+namespace AdventOfCode2020.Solutions
 {
-    public class Day02
+    public class Day02 : IDay
     {
         public string SolveP1()
         {
