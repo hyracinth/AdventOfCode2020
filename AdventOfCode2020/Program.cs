@@ -29,5 +29,4 @@ namespace AdventOfCode2020
             }
         }
     }
-
 }
