@@ -12,7 +12,7 @@ namespace AdventOfCode2020
         {
             string classTemplate = "AdventOfCode2020.Solutions.Day#, AdventOfCode2020";
 
-            int maxDay = 3;
+            int maxDay = 4;
             for(int ii = 1; ii <= maxDay; ii++)
             {
                 string currDay = ii.ToString("D2");
@@ -20,9 +20,11 @@ namespace AdventOfCode2020
                 Console.WriteLine("Day " + currDay);
                 string currDayClass = classTemplate.Replace("#", currDay);
 
-                var instObj = Activator.CreateInstance(Type.GetType(currDayClass)) as IDay;
-                Console.WriteLine(instObj.SolveP1());
-                Console.WriteLine(instObj.SolveP2());
+                var instantiatedDay = Activator.CreateInstance(Type.GetType(currDayClass)) as IDay;
+                Console.WriteLine(instantiatedDay.SolveP1());
+                Console.WriteLine(instantiatedDay.SolveP2());         
+                Console.WriteLine(instantiatedDay.SolveP3());
+
                 Console.WriteLine();
             }
         }

@@ -29,7 +29,7 @@ namespace AdventOfCode2020.Solutions
 
         public int getTrees(int xStep, int yStep)
         {
-            string[] inputsRaw = Utils.readInputFile(3);
+            string[] inputsRaw = AoCUtils.readInputFile("03");
             int width = inputsRaw[0].Length;
 
             int currX = 0;
@@ -54,6 +54,11 @@ namespace AdventOfCode2020.Solutions
             }
 
             return countTree;
+        }
+
+        public string SolveP3()
+        {
+            return "Not yet implemented";
         }
     }
 }

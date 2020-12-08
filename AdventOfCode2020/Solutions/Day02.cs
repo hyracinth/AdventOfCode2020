@@ -14,7 +14,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            List<string> inputsRaw = Utils.readInputFile(2).ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile("02").ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');
@@ -41,7 +41,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            List<string> inputsRaw = Utils.readInputFile(2).ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile("02").ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');
@@ -63,6 +63,61 @@ namespace AdventOfCode2020.Solutions
             }
 
             return count.ToString();
+        }
+
+        public string SolveP3()
+        {
+            List<char> resultChar = new List<char>();
+
+            List<string> inputsRaw = AoCUtils.readInputFile("02_3").ToList();
+            foreach (string currPair in inputsRaw)
+            {
+                string[] components = currPair.Split(' ');
+
+                string[] passLengths = components[0].Split('-');
+                int startInd = Int32.Parse(passLengths[0]) - 1;
+                int endInd = Int32.Parse(passLengths[1]) - 1;
+
+                char reqChar = components[1].ToCharArray().First();
+
+                string passwordFrag = components[2].Substring(startInd, endInd - startInd + 1);
+
+                Boolean isPalindrone = true;
+                for(int ii = 0; ii < passwordFrag.Length / 2; ii++)
+                {
+                    if(passwordFrag[ii] != passwordFrag[passwordFrag.Length - 1 - ii])
+                    {
+                        isPalindrone = false;
+                    }
+                }
+
+                // A = 65 : Z = 90
+                // a = 97 : z = 122
+                if(isPalindrone)
+                {
+                    char rot13Char;
+                    int tempCode = (int)reqChar + 13;
+                    if(reqChar <= 122 && reqChar >= 97 && tempCode > 122)
+                    {
+                        int offset = tempCode - 122;
+                        rot13Char = (char)(97 + offset - 1);
+                    }
+                    else if(reqChar <= 90 && reqChar >= 65 && tempCode > 90)
+                    {
+                        int offset = tempCode - 90;
+                        rot13Char = (char)(65 + offset - 1);
+                    }
+                    else
+                    {
+                        rot13Char = (char)tempCode;
+                    }
+
+                    resultChar.Add(rot13Char);
+                }
+
+            }
+
+            return new string(resultChar.ToArray());
         }
     }
 }

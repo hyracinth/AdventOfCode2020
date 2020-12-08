@@ -10,5 +10,6 @@ namespace AdventOfCode2020
     {
         string SolveP1();
         string SolveP2();
+        string SolveP3();
     }
 }
