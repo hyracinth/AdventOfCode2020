@@ -13,12 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("04");
-            // Account for File.ReadAllLines discarding last newline
-            List<string> inputsProcessed = inputsRaw.ToList();
-            inputsProcessed.Add("");
-            inputsRaw = inputsProcessed.ToArray();
-
+            string[] inputsRaw = AoCUtils.readInputFile("04", true);
             int count = 0;
 
             Boolean hasByr = false;
@@ -85,12 +80,7 @@ namespace AdventOfCode2020.Solutions
 
         public string SolveP2()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("04");
-            // Account for File.ReadAllLines discarding last newline
-            List<string> inputsProcessed = inputsRaw.ToList();
-            inputsProcessed.Add("");
-            inputsRaw = inputsProcessed.ToArray();
-
+            string[] inputsRaw = AoCUtils.readInputFile("04", true);
             int count = 0;
 
             Boolean hasByr = false;
