@@ -15,12 +15,69 @@ namespace AdventOfCode2020.Solutions
         {
             string[] inputsRaw = AoCUtils.readInputFile("06", true);
 
-            return "Not yet implemented";
+            HashSet<char> currGrpAnswers = new HashSet<char>();
+            int runningSum = 0;
+
+            foreach(string currLine in inputsRaw)
+            {
+                if(currLine == "")
+                {
+                    runningSum += currGrpAnswers.Count();
+                    currGrpAnswers.Clear();
+                    continue;
+                }
+
+                foreach(char currAns in currLine)
+                {
+                    currGrpAnswers.Add(currAns);
+                }
+            }
+
+            return runningSum.ToString();
         }
 
         public string SolveP2()
         {
-            return "Not yet implemented";
+            string[] inputsRaw = AoCUtils.readInputFile("06", true);
+
+            int runningSum = 0;
+            int groupMemCount = 0;
+            Dictionary<char, int> groupAnswers = new Dictionary<char, int>();
+
+            foreach (string currLine in inputsRaw)
+            {
+                if (currLine == "")
+                {
+                    int groupSum = 0;
+                    foreach(KeyValuePair<char, int> kvp in groupAnswers)
+                    {
+                        if(kvp.Value == groupMemCount)
+                        {
+                            groupSum++;
+                        }
+                    }
+                    runningSum += groupSum;
+
+                    groupMemCount = 0;
+                    groupAnswers.Clear();
+                    continue;
+                }
+
+                groupMemCount++;
+                foreach (char currAns in currLine)
+                {
+                    if(groupAnswers.ContainsKey(currAns))
+                    {
+                        groupAnswers[currAns]++;
+                    }
+                    else
+                    {
+                        groupAnswers.Add(currAns, 1);
+                    }
+                }
+            }
+
+            return runningSum.ToString();
         }
 
         public string SolveP3()
