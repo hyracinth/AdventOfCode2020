@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("05");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
 
             int maxId = 0;
             int maxRow = 127;
@@ -61,7 +61,7 @@ namespace AdventOfCode2020.Solutions
 
         public string SolveP2()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("05");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
 
             List<int> seatIds = new List<int>();
 

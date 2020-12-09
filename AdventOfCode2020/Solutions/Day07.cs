@@ -82,7 +82,7 @@ namespace AdventOfCode2020.Solutions
 
         public Dictionary<string, List<Tuple<string, int>>> createBagOfMadness()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("07");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
             Dictionary<string, List<Tuple<string, int>>> bagsOfMadness = new Dictionary<string, List<Tuple<string, int>>>();
 
             foreach (string currLine in inputsRaw)

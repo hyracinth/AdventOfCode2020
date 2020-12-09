@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("04", true);
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3), true);
             int count = 0;
 
             Boolean hasByr = false;
@@ -80,7 +80,7 @@ namespace AdventOfCode2020.Solutions
 
         public string SolveP2()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("04", true);
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3), true);
             int count = 0;
 
             Boolean hasByr = false;

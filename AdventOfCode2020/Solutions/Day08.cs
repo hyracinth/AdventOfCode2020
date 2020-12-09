@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("08");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
             int[] instStatus = new int[inputsRaw.Length];
             int currLine = 0;
             int accumulator = 0;
@@ -54,7 +54,7 @@ namespace AdventOfCode2020.Solutions
         public string SolveP2()
         {
             Boolean foundSolution = false;
-            string[] inputsRaw = AoCUtils.readInputFile("08");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
             int accumulator = 0;
 
             for (int ii = 0; ii < inputsRaw.Length; ii++)
@@ -82,7 +82,6 @@ namespace AdventOfCode2020.Solutions
 
                 int[] instStatus = new int[inputsMod.Length];
                 int currLine = 0;
-                int count = 0;
                 accumulator = 0;
                 while (instStatus[currLine] < threshold)
                 {

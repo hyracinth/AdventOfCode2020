@@ -14,7 +14,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            List<string> inputsRaw = AoCUtils.readInputFile("02").ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');
@@ -41,7 +41,7 @@ namespace AdventOfCode2020.Solutions
         {
             int count = 0;
 
-            List<string> inputsRaw = AoCUtils.readInputFile("02").ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).ToList();
             foreach (string currPair in inputsRaw)
             {
                 string[] components = currPair.Split(' ');

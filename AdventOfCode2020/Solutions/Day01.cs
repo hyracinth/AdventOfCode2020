@@ -14,7 +14,7 @@ namespace AdventOfCode2020.Solutions
         {
             int target = 2020;
 
-            List<string> inputsRaw = AoCUtils.readInputFile("01").ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).ToList();
             List<int> inputs = inputsRaw.Select(x => Int32.Parse(x)).Where(x => x < target).ToList();
 
             for(int ii = 0; ii < inputs.Count; ii++)
@@ -40,7 +40,7 @@ namespace AdventOfCode2020.Solutions
         {
             int target = 2020;
 
-            List<string> inputsRaw = AoCUtils.readInputFile("01").ToList();
+            List<string> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).ToList();
             List<int> inputs = inputsRaw.Select(x => Int32.Parse(x)).Where(x => x < target).ToList();
 
             for (int ii = 0; ii < inputs.Count; ii++)

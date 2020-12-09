@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("06", true);
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3), true);
 
             HashSet<char> currGrpAnswers = new HashSet<char>();
             int runningSum = 0;
@@ -38,7 +38,7 @@ namespace AdventOfCode2020.Solutions
 
         public string SolveP2()
         {
-            string[] inputsRaw = AoCUtils.readInputFile("06", true);
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3), true);
 
             int runningSum = 0;
             int groupMemCount = 0;

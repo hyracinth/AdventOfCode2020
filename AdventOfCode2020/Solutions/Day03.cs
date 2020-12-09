@@ -29,7 +29,7 @@ namespace AdventOfCode2020.Solutions
 
         public int getTrees(int xStep, int yStep)
         {
-            string[] inputsRaw = AoCUtils.readInputFile("03");
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
             int width = inputsRaw[0].Length;
 
             int currX = 0;
