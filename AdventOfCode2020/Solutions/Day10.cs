@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2020.Solutions
 {
@@ -20,6 +15,9 @@ namespace AdventOfCode2020.Solutions
             int joltDiff3 = 0;
             int currentJolt = 0;
 
+            // Since maximum number of adapters needs to be used, sort list first
+            // Iterate and make sure each adapter is "valid" (at most three away)
+            //  while counting the instances of diff1 and diff3
             foreach (int iterJolt in inputsRaw)
             {
                 int currDiff = iterJolt - currentJolt;
@@ -38,7 +36,7 @@ namespace AdventOfCode2020.Solutions
                 }
             }
 
-            // Plus one to account for device adapter
+            // Plus one to diff3 in order to account for device adapter
             int result = joltDiff1 * (joltDiff3 + 1);
             return result.ToString();
         }
@@ -50,6 +48,8 @@ namespace AdventOfCode2020.Solutions
             inputsRaw.Add(inputsRaw.Max() + 3);
             inputsRaw.Sort();
 
+            // Makes a dictionary of dependencies
+            //  key: adapter joltage | value: list of valid adapters in list of adapters
             Dictionary<int, List<int>> adapterDependencies = new Dictionary<int, List<int>>();
             for(int ii = 0; ii < inputsRaw.Count(); ii++)
             {
@@ -64,6 +64,9 @@ namespace AdventOfCode2020.Solutions
                 adapterDependencies.Add(inputsRaw[ii], validNums);
             }
 
+            // Iterate while maintaining a list of possible permutations
+            //  Working backwards, combine the sum of each dependency until the first
+            //  Math approach the only viable method for larger inputs
             Dictionary<int, long> permutations = new Dictionary<int, long>();
             permutations.Add(inputsRaw.Max(), 1);
             for (int ii = inputsRaw.Count() - 2; ii >= 0; ii--)
@@ -91,6 +94,8 @@ namespace AdventOfCode2020.Solutions
             inputsRaw.Add(inputsRaw.Max() + 3);
             inputsRaw.Sort();
 
+            // Makes a dictionary of dependencies
+            //  key: adapter joltage | value: list of valid adapters in list of adapters
             Dictionary<int, List<int>> adapterDependencies = new Dictionary<int, List<int>>();
             for (int ii = 0; ii < inputsRaw.Count(); ii++)
             {
@@ -105,6 +110,9 @@ namespace AdventOfCode2020.Solutions
                 adapterDependencies.Add(inputsRaw[ii], validNums);
             }
 
+            // Use a queue to maintain dependencies
+            //  Enqueue all dependencies of a "node" | Dequeue on processed
+            //  Only viable for small inputs, slow and space consuming
             Queue<int> queue = new Queue<int>();
             queue.Enqueue(0);
             int count = 1;

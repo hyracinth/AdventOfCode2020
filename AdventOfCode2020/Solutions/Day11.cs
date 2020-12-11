@@ -7,7 +7,7 @@ namespace AdventOfCode2020.Solutions
     public class Day11 : IDay
     {
         // List of all "adjacent" positions
-        List<Tuple<int, int>> adjList = new List<Tuple<int, int>>()
+        readonly List<Tuple<int, int>> adjList = new List<Tuple<int, int>>()
             {
                 new Tuple<int, int>(-1, -1),
                 new Tuple<int, int>(0, -1),

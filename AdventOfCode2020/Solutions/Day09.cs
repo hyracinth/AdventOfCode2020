@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2020.Solutions
 {
@@ -17,11 +12,14 @@ namespace AdventOfCode2020.Solutions
             int preambleCount = 25;
             long invalidNum = long.MinValue;
 
+            // Iterate through array starting from the 25th (preamble) element
+            //  On each element, iterate the preceeding 25 elements while checking to see if any two elements sum up to next number
             for(int ii = preambleCount - 1; ii < inputsRaw.Length - 1; ii++)
             {
                 Boolean validNext = false;
                 for(int jj = 0; jj < preambleCount; jj++)
                 {
+                    // If a previous number is larger than target number, skip (no negatives so impossible to sum)
                     if(inputsRaw[ii - jj] > inputsRaw[ii + 1])
                     {
                         continue;
@@ -29,11 +27,11 @@ namespace AdventOfCode2020.Solutions
 
                     for(int kk = 1; kk < preambleCount; kk++)
                     {
+                        // If indices are the same or a previous number is larger than target number, skip (no negatives so impossible to sum)
                         if (jj == kk || inputsRaw[ii - kk] > inputsRaw[ii + 1])
                         {
                             continue;
                         }
-
                         if(inputsRaw[ii - jj] + inputsRaw[ii - kk] == inputsRaw[ii + 1])
                         {
                             validNext = true;
@@ -60,8 +58,9 @@ namespace AdventOfCode2020.Solutions
         public string SolveP2()
         {
             long[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).ToList().Select(x => long.Parse(x)).ToArray();
-            int invalidId = 539;
-            long invalidNum = inputsRaw[invalidId];
+            
+            // Invalid number from previous part
+            long invalidNum = inputsRaw[539];
 
             Boolean foundWeakness = false;
             long runningSum = 0;
@@ -69,6 +68,7 @@ namespace AdventOfCode2020.Solutions
             int lastId = 0;
             List<long> weaknessList = new List<long>();
 
+            // Iterate through list while looking for consecutive numbers that will sum to the target (invalidNum)
             for (int ii = 0; ii < inputsRaw.Length; ii++)
             {
                 if(foundWeakness)
@@ -95,11 +95,11 @@ namespace AdventOfCode2020.Solutions
                 }
             }
 
+            // Add to list to get min/max
             for(int ii = 0; ii < runningCount; ii++)
             {
                 weaknessList.Add(inputsRaw[lastId - ii]);
             }
-
             long weakness = weaknessList.Min() + weaknessList.Max();
 
             return weakness.ToString();
