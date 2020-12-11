@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         public string SolveP1()
         {
-            List<int> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).Select(x => Int32.Parse(x)).ToList(); ;
+            List<int> inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3)).Select(x => Int32.Parse(x)).ToList();
             inputsRaw.Sort();
 
             int joltDiff1 = 0;
