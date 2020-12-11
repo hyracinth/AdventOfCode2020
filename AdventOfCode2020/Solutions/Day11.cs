@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2020.Solutions
 {
     public class Day11 : IDay
     {
-        public string SolveP1()
-        {
-            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
-
-            char[][] inputsProcess = new char[inputsRaw.Length][];
-            for(int ii = 0; ii < inputsRaw.Length; ii++)
-            {
-                inputsProcess[ii] = inputsRaw[ii].ToCharArray();
-            }
-
-            int maxY = inputsRaw.Length;
-            int maxX = inputsRaw[0].Length;
-
-            List<Tuple<int, int>> adjList = new List<Tuple<int, int>>()
+        // List of all "adjacent" positions
+        List<Tuple<int, int>> adjList = new List<Tuple<int, int>>()
             {
                 new Tuple<int, int>(-1, -1),
                 new Tuple<int, int>(0, -1),
@@ -36,7 +19,18 @@ namespace AdventOfCode2020.Solutions
                 new Tuple<int, int>(1, 1),
             };
 
-            Boolean stablized = false;
+        public string SolveP1()
+        {
+            string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
+
+            // Convert to char matrix for ease of modification
+            char[][] inputsProcess = new char[inputsRaw.Length][];
+            for(int ii = 0; ii < inputsRaw.Length; ii++)
+            {
+                inputsProcess[ii] = inputsRaw[ii].ToCharArray();
+            }
+            int maxY = inputsRaw.Length;
+            int maxX = inputsRaw[0].Length;
 
             // Initialize new state
             char[][] newState = new char[inputsProcess.Length][];
@@ -45,17 +39,21 @@ namespace AdventOfCode2020.Solutions
                 newState[ii] = (char[])inputsProcess[ii].Clone();
             }
 
+            Boolean stablized = false;
             while (!stablized)
             {
                 for (int yy = 0; yy < maxY; yy++)
                 {
                     for (int xx = 0; xx < maxX; xx++)
                     {
+                        // If floor, skip
                         if (inputsProcess[yy][xx] == '.')
                         {
                             continue;
                         }
 
+                        // Iterate through list of available adjacents
+                        // If out of bounds, floor, or empty seat, count as empty seat
                         int openSeatCount = 0;
                         foreach (Tuple<int, int> currAdj in adjList)
                         {
@@ -68,6 +66,9 @@ namespace AdventOfCode2020.Solutions
                                 openSeatCount++;
                             }
                         }
+
+                        // If current seat is empty and there are eight open seats, seat is occupied
+                        // Else if seat is occupied and there are four or less open seats, now empty
                         if (inputsProcess[yy][xx] == 'L' && openSeatCount == 8)
                         {
                             newState[yy][xx] = '#';
@@ -76,74 +77,34 @@ namespace AdventOfCode2020.Solutions
                         {
                             newState[yy][xx] = 'L';
                         }
-
                     }
                 }
 
-                stablized = true;
-                for (int ii = 0; ii < inputsProcess.Length; ii++)
-                {
-                    for (int jj = 0; jj < inputsProcess[0].Length; jj++)
-                    {
-                        if (inputsProcess[ii][jj] != newState[ii][jj])
-                        {
-                            stablized = false;
-                            break;
-                        }
-                    }
-                    if (!stablized)
-                    {
-                        break;
-                    }
-                }
+                // Check to see if new state is same as previous state
+                stablized = this.compareMatrix(newState, inputsProcess);
 
+                // Clone and replace old state
                 for (int ii = 0; ii < inputsProcess.Length; ii++)
                 {
                     inputsProcess[ii] = (char[])newState[ii].Clone();
                 }
             }
 
-            int occupiedSeats = 0;
-            for (int ii = 0; ii < inputsProcess.Length; ii++)
-            {
-                for (int jj = 0; jj < inputsProcess[0].Length; jj++)
-                {
-                    if (inputsProcess[ii][jj] == '#')
-                    {
-                        occupiedSeats++;
-                    }
-                }
-            }
-
-            return occupiedSeats.ToString();
+            return this.countSeats(inputsProcess, '#').ToString();
         }
 
         public string SolveP2()
         {
             string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
 
+            // Convert to char matrix for ease of modification
             char[][] inputsProcess = new char[inputsRaw.Length][];
             for (int ii = 0; ii < inputsRaw.Length; ii++)
             {
                 inputsProcess[ii] = inputsRaw[ii].ToCharArray();
             }
-
             int maxY = inputsRaw.Length;
             int maxX = inputsRaw[0].Length;
-
-            List<Tuple<int, int>> adjList = new List<Tuple<int, int>>()
-            {
-                new Tuple<int, int>(-1, -1),
-                new Tuple<int, int>(0, -1),
-                new Tuple<int, int>(1, -1),
-                new Tuple<int, int>(-1, 0),
-                new Tuple<int, int>(1, 0),
-                new Tuple<int, int>(-1, 1),
-                new Tuple<int, int>(0, 1),
-                new Tuple<int, int>(1, 1),
-            };
-
-            Boolean stablized = false;
 
             // Initialize new state
             char[][] newState = new char[inputsProcess.Length][];
@@ -152,12 +113,14 @@ namespace AdventOfCode2020.Solutions
                 newState[ii] = (char[])inputsProcess[ii].Clone();
             }
 
+            Boolean stablized = false;
             while (!stablized)
             {
                 for (int yy = 0; yy < maxY; yy++)
                 {
                     for (int xx = 0; xx < maxX; xx++)
                     {
+                        // If floor, skip
                         if (inputsProcess[yy][xx] == '.')
                         {
                             continue;
@@ -170,6 +133,8 @@ namespace AdventOfCode2020.Solutions
                             int newY = yy;
                             int currCount = 1;
 
+                            // Iterate through list of available adjacents
+                            // If out of bounds, floor, or empty seat, count as empty seat
                             Boolean openSeat = true;
                             while (newX >= 0 && newY >= 0 && newX < maxX && newY < maxY)
                             {
@@ -198,6 +163,9 @@ namespace AdventOfCode2020.Solutions
                                 openSeatCount++;
                             }
                         }
+
+                        // If current seat is empty and there are eight open seats, seat is occupied
+                        // Else if seat is occupied and there are three or less open seats, now empty
                         if (inputsProcess[yy][xx] == 'L' && openSeatCount == 8)
                         {
                             newState[yy][xx] = '#';
@@ -209,44 +177,17 @@ namespace AdventOfCode2020.Solutions
                     }
                 }
 
-                stablized = true;
-                for (int ii = 0; ii < inputsProcess.Length; ii++)
-                {
-                    for (int jj = 0; jj < inputsProcess[0].Length; jj++)
-                    {
-                        if (inputsProcess[ii][jj] != newState[ii][jj])
-                        {
-                            stablized = false;
-                            break;
-                        }
-                    }
-                    if (!stablized)
-                    {
-                        break;
-                    }
-                }
+                // Check to see if new state is same as previous state
+                stablized = this.compareMatrix(newState, inputsProcess);
 
+                // Clone and replace old state
                 for (int ii = 0; ii < inputsProcess.Length; ii++)
                 {
                     inputsProcess[ii] = (char[])newState[ii].Clone();
                 }
             }
 
-            int occupiedSeats = 0;
-            for (int ii = 0; ii < inputsProcess.Length; ii++)
-            {
-                for (int jj = 0; jj < inputsProcess[0].Length; jj++)
-                {
-                    if (inputsProcess[ii][jj] == '#')
-                    {
-                        occupiedSeats++;
-                    }
-                }
-            }
-
-            return occupiedSeats.ToString();
-
-            return null;
+            return this.countSeats(inputsProcess, '#').ToString();
         }
 
         public string SolveP3()
@@ -271,7 +212,7 @@ namespace AdventOfCode2020.Solutions
             };
         }
 
-        private string printMatrix(char[][] input)
+        private void printMatrix(char[][] input)
         {
             StringBuilder sb = new StringBuilder();
             for(int yy = 0; yy < input.Length; yy++)
@@ -282,7 +223,44 @@ namespace AdventOfCode2020.Solutions
                 }
                 sb.AppendLine();
             }
-            return sb.ToString();
+            Console.WriteLine(sb.ToString());
+        }
+
+        private Boolean compareMatrix(char[][] matA, char[][] matB)
+        {
+            Boolean isEqual = true;
+            for (int ii = 0; ii < matA.Length; ii++)
+            {
+                for (int jj = 0; jj < matA[0].Length; jj++)
+                {
+                    if (matA[ii][jj] != matB[ii][jj])
+                    {
+                        isEqual = false;
+                        break;
+                    }
+                }
+                if (!isEqual)
+                {
+                    break;
+                }
+            }
+            return isEqual;
+        }
+
+        private int countSeats(char[][] matIn, char state)
+        {
+            int count = 0;
+            for (int ii = 0; ii < matIn.Length; ii++)
+            {
+                for (int jj = 0; jj < matIn[0].Length; jj++)
+                {
+                    if (matIn[ii][jj] == state)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
     }
 }

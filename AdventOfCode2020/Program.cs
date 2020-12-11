@@ -20,7 +20,6 @@ namespace AdventOfCode2020
                 string currDayClass = classTemplate.Replace("#", currDay);
 
                 Stopwatch sw = new Stopwatch();
-
                 IDay instantiatedDay = Activator.CreateInstance(Type.GetType(currDayClass)) as IDay;
 
                 sw.Start();
