@@ -13,9 +13,9 @@ namespace AdventOfCode2020.Solutions
         // Dictionary with directions and corresponding vectors
         Dictionary<char, Tuple<int, int>> dirVectors = new Dictionary<char, Tuple<int, int>>()
             {
-                {'N', new Tuple<int, int>(0, -1) },
+                {'N', new Tuple<int, int>(0, 1) },
                 {'E', new Tuple<int, int>(1, 0) },
-                {'S', new Tuple<int, int>(0, 1) },
+                {'S', new Tuple<int, int>(0, -1) },
                 {'W', new Tuple<int, int>(-1, 0) }
             };
 
@@ -66,23 +66,13 @@ namespace AdventOfCode2020.Solutions
             return result.ToString();
         }
 
-        // NOT WORKING AT THE MOMENT
         public string SolveP2()
         {
             string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
-            //inputsRaw = new string[]
-            //{
-            //    "F10",
-            //    "N3",
-            //    "F7",
-            //    "R450",
-            //    "L360",
-            //    "F11"
-            //};
 
             int turns;
             long[] shipCoords = new long[2] { 0, 0 };
-            long[] wayptCoords = new long[2] { -10, -1 };
+            long[] wayptCoords = new long[2] { 10, 1 };
 
             foreach (string currInstr in inputsRaw)
             {
@@ -106,16 +96,6 @@ namespace AdventOfCode2020.Solutions
                         shipCoords[1] += value * currY;
                         wayptCoords[0] = shipCoords[0] + currX;
                         wayptCoords[1] = shipCoords[1] + currY;
-
-                        //currX = wayptCoords[0] - currCoords[0];
-                        //currY = wayptCoords[1] - currCoords[1];
-                        //for (int ii = 0; ii < value; ii++) 
-                        //{
-                        //    currCoords[0] += currX;
-                        //    currCoords[1] += currY;
-                        //    wayptCoords[0] += currX;
-                        //    wayptCoords[1] += currY;
-                        //}
                         break;
                     case 'R':
                         turns = (value / 90) % 4;
@@ -144,9 +124,6 @@ namespace AdventOfCode2020.Solutions
                         wayptCoords[1] += shipCoords[1];
                         break;
                 }
-                Console.WriteLine(currInstr);
-                Console.WriteLine("WYPT " + wayptCoords[0] + "\t" + wayptCoords[1]);
-                Console.WriteLine("SHIP " + shipCoords[0] + "\t" + shipCoords[1]);
             }
 
             long result = Math.Abs(shipCoords[0]) + Math.Abs(shipCoords[1]);
