@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2020
 {
@@ -13,7 +10,7 @@ namespace AdventOfCode2020
         {
             string classTemplate = "AdventOfCode2020.Solutions.Day#, AdventOfCode2020";
 
-            int maxDay = 12;
+            int maxDay = 13;
             for(int ii = 1; ii <= maxDay; ii++)
             {
                 string currDay = ii.ToString("D2");
