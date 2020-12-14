@@ -10,7 +10,7 @@ namespace AdventOfCode2020
         {
             string classTemplate = "AdventOfCode2020.Solutions.Day#, AdventOfCode2020";
 
-            int maxDay = 13;
+            int maxDay = 14;
             for(int ii = 1; ii <= maxDay; ii++)
             {
                 string currDay = ii.ToString("D2");
