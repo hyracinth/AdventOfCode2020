@@ -77,7 +77,6 @@ namespace AdventOfCode2020.Solutions
         }
 
         public string SolveP2()
-
         {
             string[] inputsRaw = AoCUtils.readInputFile(this.GetType().Name.Substring(3));
 

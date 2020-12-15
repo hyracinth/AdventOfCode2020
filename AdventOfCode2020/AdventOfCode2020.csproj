@@ -46,6 +46,7 @@
     <Compile Include="IDay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solutions\Day15.cs" />
     <Compile Include="Solutions\Day14.cs" />
     <Compile Include="Solutions\Day13.cs" />
     <Compile Include="Solutions\Day12.cs" />
